@@ -1,0 +1,15 @@
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/main/utilitaires/Utilitaires.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/ordonnerLesFragments/HamiltonianPath.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/ordonnerLesFragments/ManageArcsOfOverlapGraph.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/rechercheDesChevauchements/FragmentADN.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/rechercheDesChevauchements/CreationFragCompInv.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/ordonnerLesFragments/MainGreedy.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/rechercheDesChevauchements/PositionScore.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/alignementEtConsensus/MainMultiple.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/alignementEtConsensus/AlignementMultiple.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/alignementEtConsensus/CoupleFragments.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/main/MainAssemblageAdn.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/rechercheDesChevauchements/AlignSemiGlobalParProgDynamique.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/main/classes/Arc.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/alignementEtConsensus/ReconstitutionAlignementOpt.java
+/home/bellafkih/Documents/2016-2017/BIOINFORMATIQUE/versions/assemblageFragmentsADN/src/main/java/rechercheDesChevauchements/ResultatProgDynam.java
