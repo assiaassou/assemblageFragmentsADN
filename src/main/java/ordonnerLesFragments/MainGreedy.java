@@ -25,7 +25,7 @@ public class MainGreedy {
 	public static void main(String[] args) throws IOException ,FileNotFoundException  {
 		// TODO Auto-generated method stub
 		List<Integer[]> selectedArcs=null;
-		HamiltonianPath ga = new HamiltonianPath();
+		HamiltonianPath ga = new HamiltonianPath("");
 		//System.out.println("aaaa   "+ga.listOfSelectedArcs.size());
 		ga.hameltonienPath();
 		Integer[] finalPath= ga.constructFinalPath();

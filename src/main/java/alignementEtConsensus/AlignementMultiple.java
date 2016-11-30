@@ -78,14 +78,14 @@ public class AlignementMultiple {
 		char[] lastLineMatrix = null;
 
 		for (char[][] currentAlignement : listAlignement) {
-			new Utilitaires().displayAlignement(currentAlignement);
+			//new Utilitaires().displayAlignement(currentAlignement);
 			int pfstp, pfsss;
 			int currAliCols = currentAlignement[0].length;
 			if (count == 0) { // c'est le premier alignement
 				matrix = currentAlignement;
 				count++;
 				lastLineMatrix = matrix[1];
-				System.out.println("je m'execute une seule fois ^_^");
+				//System.out.println("je m'execute une seule fois ^_^");
 
 			} else {
 
@@ -192,19 +192,19 @@ public class AlignementMultiple {
 					matrix = matrix_;
 
 				} // fin if alligne commence par '.'
-				System.out.println("avant injection du gap");
-				new Utilitaires().displayMatrix(matrix);
+				//System.out.println("avant injection du gap");
+				//new Utilitaires().displayMatrix(matrix);
 
 				// Injection des gaps
 				lines = matrix.length;
 				cols = matrix[0].length;
 				char[] sCurrentAlign = matrix[lines-2];
 				int posGap;
-				new Utilitaires().displayLine(sCurrentAlign);
+				//new Utilitaires().displayLine(sCurrentAlign);
 				for (int i = 0; i < currAliCols; i++) {
 					if (sCurrentAlign[i] == '-') {
 						posGap = i;
-						System.out.println("Hello wold i am a gap in "+posGap);
+						//System.out.println("Hello wold i am a gap in "+posGap);
 						int j = 0;
 						for (int s = 0; s < lines - 2; s++) {
 							if (matrix[s][cols - 1] == '.') {
@@ -257,8 +257,8 @@ public class AlignementMultiple {
 				lastLineMatrix = matrix[matrix.length - 1];
 
 			} // fin count
-			System.out.println("apres injection du gap");
-			new Utilitaires().displayMatrix(matrix);
+			//System.out.println("apres injection du gap");
+			//new Utilitaires().displayMatrix(matrix);
 
 		} // fin for alignements
 		return matrix;
