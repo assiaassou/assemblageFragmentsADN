@@ -1,10 +1,17 @@
 package alignementEtConsensus;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import rechercheDesChevauchements.FragmentADN;
 import rechercheDesChevauchements.PositionScore;
 import rechercheDesChevauchements.ResultatProgDynam;
@@ -86,13 +93,13 @@ public Map reconstitutionAlignementOpt(){
 	  
 	  CoupleFragments couplefragments=new CoupleFragments(idS,idT);
 	  
-	/*  System.out.println("************************************************");
-	  System.out.println("Alignements du couple : ("+this.listeTousFragEtCompInv.get(i).getId()+","+this.listeTousFragEtCompInv.get(i+1).getId()+")");
+	  System.out.println("************************************************");
+	  System.out.println("Alignements du couple : ("+idS+","+idT+")");
 	  System.out.println("le nbr d'alignements possibles est:"+listAlignementsPossibles.size());
 	  System.out.println("************************************************");
 	
-	  System.out.println("POSSIBILITE N  " + alignementChoisi); */
-		 ReconstituerAlignement2(listAlignementsPossibles.get(alignementChoisi),acidesS,acidesT);
+	/*  System.out.println("POSSIBILITE N  " + alignementChoisi); */
+	//	 ReconstituerAlignement2(listAlignementsPossibles.get(alignementChoisi),acidesS,acidesT);
 	 
 	//--------------Fin----------------------------------- 
 	  
@@ -360,7 +367,7 @@ public Map reconstitutionAlignementOpt(){
 
 	public static ArrayList updateAlignementOptimal(ArrayList<PositionScore> tableAlignementOptimal,PositionScore source, ArrayList<ArrayList<PositionScore>> listAlignementsPossibles){
 	ArrayList table = new ArrayList();
-	int i,j;
+	int i;
 
 	for( i = 0; i < tableAlignementOptimal.size(); i++)
 	{
@@ -368,8 +375,18 @@ public Map reconstitutionAlignementOpt(){
 	}
 
 	table.add(source);
+	
+
+
+	Instant instant = Instant.now (); // Current date-time in UTC.
+	String output = instant.toString ();
+
+
+	
 	if (source.getPositionLigne()==0 || source.getPositionColonne()==0)
 	{
+		
+		System.out.println("calcul de possibilité "+ output);
 	listAlignementsPossibles.add(table); //mettre alignement optimal dans la liste des alignements optimaux possibles
 	}
 	return table;

@@ -12,10 +12,11 @@ public class CreationFragCompInv {
 	public ArrayList<FragmentADN> creationFragCompInv(String filepath) throws IOException {
 
 		// lire le fichier fasta
-	//	InputStream filer = ClassLoader.getSystemResourceAsStream("Collection1-SimplifiВe.FASTA");
+//	InputStream filer = ClassLoader.getSystemResourceAsStream("Collection1-SimplifiВe.FASTA");
 		// InputStream filer = ClassLoader.getSystemResourceAsStream("test");
 		BufferedReader br = new BufferedReader(new FileReader(filepath));
-
+//	BufferedReader br = new BufferedReader(new InputStreamReader(filer));
+	
 		String strLine, str = ""; // str=concaténation des lignes d'un fragment
 		int id = 0;
 
