@@ -378,15 +378,17 @@ public Map reconstitutionAlignementOpt(){
 	
 
 
-	Instant instant = Instant.now (); // Current date-time in UTC.
-	String output = instant.toString ();
-
+//	Instant instant = Instant.now (); // Current date-time in UTC.
+//	String output = instant.toString ();
+	String output ;
+	//java.util.Date date = new java.util.Date();
+	//output=date.toString();
 
 	
 	if (source.getPositionLigne()==0 || source.getPositionColonne()==0)
 	{
 		
-		System.out.println("calcul de possibilité "+ output);
+		//System.out.println("calcul de possibilité "+ output);
 	listAlignementsPossibles.add(table); //mettre alignement optimal dans la liste des alignements optimaux possibles
 	}
 	return table;
