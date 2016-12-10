@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +24,18 @@ public class Utilitaires {
 		// writer.close();
 	}
 
+	
+	public void displayArrayLists(ArrayList<ArrayList<Character>> arrayLists){
+		for(ArrayList<Character> arraylist : arrayLists){
+			System.out.println("");
+			for(Character c: arraylist){
+				System.out.print(c+"  ");
+			}
+		}
+	}
+	public void displayArrayList(){
+		
+	}
 	public void createraph(Integer[] nodes, List<Integer[]> arcs, Integer[][] matrix) {
 		try {
 
@@ -52,6 +65,15 @@ public class Utilitaires {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Character> convertCharArrayToCharacterArray(char[] chars){
+		ArrayList<Character> temporaryList=new ArrayList<Character>();
+		for(char s: chars){
+			temporaryList.add(new Character(s));
+		}
+		return temporaryList;
+		
 	}
 
 	public void displayMatrix(char[][] matrix) throws IOException {
