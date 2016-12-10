@@ -178,6 +178,7 @@ public Integer[][] alignementSemiGlobal ( ){
 		// le max pour alignement semi global
 			int maxLigne,maxColonne,max;
 			int ligne=0,colonne=0; 
+			
 			//Calcule max derniere ligne
 			maxLigne=a[a.length-1][1];
 			for(i=0;i<a[0].length;i++)  
@@ -186,7 +187,24 @@ public Integer[][] alignementSemiGlobal ( ){
 					colonne = i;
 				}
 			
-			//Calcule max derniere colonne
+			// verifier si on a plusieurs valeurs = maxLigne dans la derniere ligne
+			// et mettre leurs positions dans ArrayList
+			ArrayList tab=new ArrayList();
+			for (i = 0; i < a[0].length; i++)
+				if (a[a.length - 1][i] == maxLigne) {
+					tab.add(i);	
+				}
+			
+			// choisir une des ces posisitions aléatoirement 
+			int rnd = (int)(Math.random()*tab.size());
+			// retourner la val de la position choisie
+		    colonne= (Integer) tab.get(rnd); 
+			
+		 // prendre juste le max de la derniere ligne 
+		    return max = a[a.length - 1][colonne];
+		 		
+			
+		/*	//Calcule max derniere colonne
 			maxColonne=a[1][a[0].length-1];
 			for(i=1;i<a.length;i++)  
 				if (a[i][a[0].length-1] > maxColonne) 
@@ -195,9 +213,10 @@ public Integer[][] alignementSemiGlobal ( ){
 					ligne=i;
 					}
 
-			max=Math.max(maxLigne,maxColonne);
+			if (maxLigne==maxColonne) max=maxLigne;
+			else max=Math.max(maxLigne,maxColonne);
+		 */
 		 
-		  return max;
 		}
 		
 }

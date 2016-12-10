@@ -29,7 +29,7 @@ public class MainAssemblageAdn {
 		long startTime = System.nanoTime();
 
 		System.out.println("Début de la construction du chemin Hameltonien");
-		HamiltonianPath ga = new HamiltonianPath(args[0]);
+		HamiltonianPath ga = new HamiltonianPath("/home/assia/Workspace-BioInfo/assemblage/assemblageFragmentsADN/src/main/resources/Collection1-SimplifiВe.FASTA");
 		ga.hameltonienPath();
 		Integer[] finalPath = ga.constructFinalPath();
 		ArrayList<Integer> cheminHameltonienFinale = new ArrayList<Integer>();
