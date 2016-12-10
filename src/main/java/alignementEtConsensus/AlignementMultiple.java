@@ -1,5 +1,7 @@
 package alignementEtConsensus;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,18 +20,21 @@ public class AlignementMultiple {
 		ArrayList<char[][]> listAlignement = new ArrayList<char[][]>();
 		// char[][][] alignements = { al4, al3 };
 		char[][] all1 = { { 'a', 'a', '.', '.' }, { '.', 'a', 'b', 'b' } };
-		char[][] all2 = { { '.', '.', '.', 'a', '-', 'b', 'b' }, { 'b', 'b', 'b', 'a', 'b', 'b', 'b' } };
-		char[][] all3 = { { 'b', 'b', 'b', 'a', 'b', '-', 'b', 'b' }, { 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' } };
-		char[][] all4 = { { 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' }, { '.', 'c', 'c', 'c', '.', '.', '.', '.' } };
+		char[][] all2 = { { '.', '.', '.', 'a', '-', 'b', 'b' },
+				{ 'b', 'b', 'b', 'a', 'b', 'b', 'b' } };
+		char[][] all3 = { { 'b', 'b', 'b', 'a', 'b', '-', 'b', 'b' },
+				{ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' } };
+		char[][] all4 = { { 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' },
+				{ '.', 'c', 'c', 'c', '.', '.', '.', '.' } };
 		char[][] all5 = { { 'c', 'c', '-', 'c' }, { '.', 'c', 'c', 'c' } };
 
 		// la liste des alignements
 		// char[][][] alignements = { all2, all3, all4, all5 };
 		listAlignement.add(all1);
 		listAlignement.add(all2);
-		 listAlignement.add(all3);
-		 listAlignement.add(all4);
-		 listAlignement.add(all5);
+		listAlignement.add(all3);
+		listAlignement.add(all4);
+		listAlignement.add(all5);
 		voteMajorite(consensus(listAlignement));
 
 	}
@@ -67,10 +72,29 @@ public class AlignementMultiple {
 				consensus[i] = result.get(new Random().nextInt(result.size() - 1));
 			}			
 		}
+		
+		try {
+
+		      File file = new File("salam.txt");
+
+		      if (file.createNewFile()){
+		        System.out.println("File is created!");
+		      }else{
+		    	
+		    	    FileWriter fw = new FileWriter("salam.txt",true); //the true will append the new data
+		    	    for( char i; i)
+		    	    fw.write("");//appends the string to the file
+		    	    fw.close();
+		      }
+
+	    	} catch (IOException e) {
+		      e.printStackTrace();
+		}
 		new Utilitaires().displayLine(consensus);
 	}
 
-	public static char[][] consensus(ArrayList<char[][]> listAlignement) throws IOException {
+	public static char[][] consensus(ArrayList<char[][]> listAlignement)
+			throws IOException {
 		Utilitaires u = new Utilitaires();
 		int count = 0;
 		int cols, cols_, lines, lines_;
@@ -78,14 +102,14 @@ public class AlignementMultiple {
 		char[] lastLineMatrix = null;
 
 		for (char[][] currentAlignement : listAlignement) {
-			//new Utilitaires().displayAlignement(currentAlignement);
+			// new Utilitaires().displayAlignement(currentAlignement);
 			int pfstp, pfsss;
 			int currAliCols = currentAlignement[0].length;
 			if (count == 0) { // c'est le premier alignement
 				matrix = currentAlignement;
 				count++;
 				lastLineMatrix = matrix[1];
-				//System.out.println("je m'execute une seule fois ^_^");
+				// System.out.println("je m'execute une seule fois ^_^");
 
 			} else {
 
@@ -115,10 +139,10 @@ public class AlignementMultiple {
 						for (int j = 0; j < pfstp; j++) {
 							matrix_[i][j] = '.';
 						}
-						for (int j = pfstp; j < currAliCols+pfstp; j++) {
+						for (int j = pfstp; j < currAliCols + pfstp; j++) {
 							matrix_[i][j] = currentAlignement[i % 2][j - pfstp];
 						}
-						for (int j = currAliCols+pfstp; j < cols_; j++) {
+						for (int j = currAliCols + pfstp; j < cols_; j++) {
 							matrix_[i][j] = '.';
 						}
 					}
@@ -145,7 +169,8 @@ public class AlignementMultiple {
 							for (int j = 0; j < decalage; j++) {
 								matrix_[i][j] = '.';
 							}
-							System.out.println("de  " + decalage + "  a  " + (cols + decalage));
+							System.out.println("de  " + decalage + "  a  "
+									+ (cols + decalage));
 							for (int j = decalage; j < (cols + decalage); j++) {
 								matrix_[i][j] = matrix[i][j - decalage];
 							}
@@ -182,7 +207,8 @@ public class AlignementMultiple {
 								matrix_[i][j] = '.';
 							}
 							for (int j = decalage; j < decalage + currAliCols; j++) {
-								matrix_[i][j] = currentAlignement[i % 2][j - decalage];
+								matrix_[i][j] = currentAlignement[i % 2][j
+										- decalage];
 							}
 							for (int j = decalage + currAliCols; j < cols_; j++) {
 								matrix_[i][j] = '.';
@@ -192,19 +218,19 @@ public class AlignementMultiple {
 					matrix = matrix_;
 
 				} // fin if alligne commence par '.'
-				//System.out.println("avant injection du gap");
-				//new Utilitaires().displayMatrix(matrix);
+					// System.out.println("avant injection du gap");
+					// new Utilitaires().displayMatrix(matrix);
 
 				// Injection des gaps
 				lines = matrix.length;
 				cols = matrix[0].length;
-				char[] sCurrentAlign = matrix[lines-2];
+				char[] sCurrentAlign = matrix[lines - 2];
 				int posGap;
-				//new Utilitaires().displayLine(sCurrentAlign);
+				// new Utilitaires().displayLine(sCurrentAlign);
 				for (int i = 0; i < currAliCols; i++) {
 					if (sCurrentAlign[i] == '-') {
 						posGap = i;
-						//System.out.println("Hello wold i am a gap in "+posGap);
+						// System.out.println("Hello wold i am a gap in "+posGap);
 						int j = 0;
 						for (int s = 0; s < lines - 2; s++) {
 							if (matrix[s][cols - 1] == '.') {
@@ -224,8 +250,9 @@ public class AlignementMultiple {
 								matrix_[ii][posGap] = '-';
 								for (int jj = posGap + 1; jj < cols; jj++) {
 									matrix_[ii][jj] = matrix[ii][jj - 1];
-//									System.out.println(
-//											"element  matrix[" + ii + "][" + (jj - 1) + "]" + matrix[ii][jj - 1]);
+									// System.out.println(
+									// "element  matrix[" + ii + "][" + (jj - 1)
+									// + "]" + matrix[ii][jj - 1]);
 								}
 							}
 							matrix_[lines - 1] = matrix[lines - 1];
@@ -242,10 +269,14 @@ public class AlignementMultiple {
 									matrix_[ii][jj] = matrix[ii][jj - 1];
 								}
 							}
-							System.arraycopy(matrix[lines - 1], 0, matrix_[lines - 1], 0, matrix[lines - 1].length);
-							matrix_[lines - 1][cols]='.';
-							System.arraycopy(matrix[lines - 2], 0, matrix_[lines - 2], 0, matrix[lines - 2].length);
-							matrix_[lines - 2][cols]='.';
+							System.arraycopy(matrix[lines - 1], 0,
+									matrix_[lines - 1], 0,
+									matrix[lines - 1].length);
+							matrix_[lines - 1][cols] = '.';
+							System.arraycopy(matrix[lines - 2], 0,
+									matrix_[lines - 2], 0,
+									matrix[lines - 2].length);
+							matrix_[lines - 2][cols] = '.';
 
 						}
 						matrix = matrix_;
@@ -257,8 +288,8 @@ public class AlignementMultiple {
 				lastLineMatrix = matrix[matrix.length - 1];
 
 			} // fin count
-			//System.out.println("apres injection du gap");
-			//new Utilitaires().displayMatrix(matrix);
+				// System.out.println("apres injection du gap");
+				// new Utilitaires().displayMatrix(matrix);
 
 		} // fin for alignements
 		return matrix;

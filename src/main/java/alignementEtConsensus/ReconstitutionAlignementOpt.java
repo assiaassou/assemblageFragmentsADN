@@ -452,7 +452,6 @@ public class ReconstitutionAlignementOpt {
 	
 
 
-<<<<<<< HEAD
 	 Instant instant = Instant.now (); // Current date-time in UTC.
 	 String output = instant.toString ();
 
@@ -483,29 +482,6 @@ public class ReconstitutionAlignementOpt {
 						.getPositionLigne() - 1]);
 				tAlignementOpt.add(t[tableAlignementOptimal.get(h)
 						.getPositionColonne() - 1]);
-=======
-//	Instant instant = Instant.now (); // Current date-time in UTC.
-//	String output = instant.toString ();
-	String output ;
-	//java.util.Date date = new java.util.Date();
-	//output=date.toString();
-
-	
-	if (source.getPositionLigne()==0 || source.getPositionColonne()==0)
-	{
-		
-		//System.out.println("calcul de possibilité "+ output);
-	listAlignementsPossibles.add(table); //mettre alignement optimal dans la liste des alignements optimaux possibles
-	}
-	return table;
-
-	}
-
-	public static char[][] ReconstituerAlignement2(ArrayList<PositionScore> tableAlignementOptimal,char s[],char t[]){
-	int h=0;
-	ArrayList<Character> sAlignementOpt = new ArrayList<Character>();
-	ArrayList<Character>  tAlignementOpt = new ArrayList<Character>();
->>>>>>> 753d34a2777700e7377e82c5fd2727cb6f65f8d5
 
 			}
 

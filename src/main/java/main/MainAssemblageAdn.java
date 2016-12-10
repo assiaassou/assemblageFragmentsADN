@@ -3,21 +3,20 @@ package main;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import alignementEtConsensus.AlignementMultiple;
 import alignementEtConsensus.CoupleFragments;
-import alignementEtConsensus.MainMultiple;
 import alignementEtConsensus.ReconstitutionAlignementOpt;
-import main.utilitaires.Utilitaires;
-import ordonnerLesFragments.HamiltonianPath;
 
-import rechercheDesChevauchements.AlignSemiGlobalParProgDynamique;
-import rechercheDesChevauchements.CreationFragCompInv;
+import ordonnerLesFragments.HamiltonianPath;
 import rechercheDesChevauchements.FragmentADN;
+
+//import ordonnerLesFragments.HamiltonianPath;
+//import rechercheDesChevauchements.FragmentADN;
+//import alignementEtConsensus.AlignementMultiple;
+//import alignementEtConsensus.CoupleFragments;
+//import alignementEtConsensus.ReconstitutionAlignementOpt;
 
 public class MainAssemblageAdn {
 
