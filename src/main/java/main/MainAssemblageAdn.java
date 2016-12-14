@@ -1,5 +1,8 @@
 package main;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +31,7 @@ public class MainAssemblageAdn {
 		long startTime = System.nanoTime();
 
 		System.out.println("Début de la construction du chemin Hameltonien");
-		HamiltonianPath ga = new HamiltonianPath("/home/assia/Workspace-BioInfo/assemblage/assemblageFragmentsADN/src/main/resources/Collection1-SimplifiВe.FASTA");
+		HamiltonianPath ga = new HamiltonianPath(args[0]);
 		ga.hameltonienPath();
 		Integer[] finalPath = ga.constructFinalPath();
 		ArrayList<Integer> cheminHameltonienFinale = new ArrayList<Integer>();
@@ -82,8 +85,22 @@ public class MainAssemblageAdn {
 		System.out.println("Fin de la calcul de la matrice consensus");
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
-		AlignementMultiple.voteMajorite(matrix);
+		String str = String.valueOf(AlignementMultiple.voteMajorite(matrix));
 		System.out.println("Fint du vote ");
+		File file = new File("/home/bellafkih/Hello1.txt");
+	      
+	      // creates the file
+	      file.createNewFile();
+	      
+	      // creates a FileWriter Object
+	      FileWriter writer = new FileWriter(file); 
+	      
+	      // Writes the content to the file
+	      writer.write(str); 
+	      writer.flush();
+	      writer.close();
+
+
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 
 	}

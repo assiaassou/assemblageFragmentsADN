@@ -39,7 +39,7 @@ public class AlignementMultiple {
 
 	}
 
-	public static void voteMajorite(char[][] matrix) throws IOException {
+	public static char[] voteMajorite(char[][] matrix) throws IOException {
 		int cols = matrix[0].length, lines = matrix.length;
 		char[] resultats = new char[cols];
 		char[] consensus = new char[cols];
@@ -73,24 +73,7 @@ public class AlignementMultiple {
 			}			
 		}
 		
-		try {
-
-		      File file = new File("salam.txt");
-
-		      if (file.createNewFile()){
-		        System.out.println("File is created!");
-		      }else{
-		    	
-		    	    FileWriter fw = new FileWriter("salam.txt",true); //the true will append the new data
-		    	    for( char i; i)
-		    	    fw.write("");//appends the string to the file
-		    	    fw.close();
-		      }
-
-	    	} catch (IOException e) {
-		      e.printStackTrace();
-		}
-		new Utilitaires().displayLine(consensus);
+		return consensus;
 	}
 
 	public static char[][] consensus(ArrayList<char[][]> listAlignement)
