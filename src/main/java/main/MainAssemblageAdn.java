@@ -86,7 +86,7 @@ public class MainAssemblageAdn {
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
 		char[] consensus= AlignementMultiple.voteMajorite(matrix);
-        utils.generateCibleFileFast(args[1], consensus, args[0]);
+    //    utils.generateCibleFileFast(args[1], consensus, args[0]);
 		System.out.println("Fint du vote ");
 
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
