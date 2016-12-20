@@ -42,18 +42,8 @@ public class Utilitaires {
 	public int getCollectionName(String filePath) throws IOException {
 		BufferedReader brTest = new BufferedReader(new FileReader(filePath));
 		String firstLine = brTest.readLine();
-		String a = "", b = "";
-		// String to be scanned to find the pattern.
-		String text = "Key - Value";
-		Pattern pairRegex = Pattern.compile("(.*collection)(\\d+)");
-		Matcher matcher = pairRegex.matcher(text);
-		if (matcher.matches()) {
-			a = matcher.group(1);
-			b = matcher.group(2);
-		}
-		System.out.println(a);
-		System.out.println(b);
-		return Integer.valueOf(b);
+		String[] parts = firstLine.split("collection");
+		return Integer.valueOf(parts[1].trim());
 
 	}
 
@@ -64,16 +54,28 @@ public class Utilitaires {
 		file.createNewFile();
 
 		// creates a FileWriter Object
-		int collectionNumber = this.getCollectionName(filePathFasta);
+
 		FileWriter writer = new FileWriter(file);
 		String consensusStr = String.valueOf(consensus);
-		String FirstLine = "> 1 Collection " + collectionNumber + "Longueur " + consensus.length;
+		String FirstLine = "> 1 Collection " + this.getCollectionName(filePathFasta) + "  Longueur " + consensus.length
+				+ "  ";
+		writer.write(FirstLine);
+		writer.write(System.getProperty("line.separator"));
 		writer.write(consensusStr);
-		// Writes the content to the file
-		writer.write(consensus);
 		writer.flush();
 		writer.close();
-		
+
+		try {
+			BufferedWriter tampon = new BufferedWriter(new FileWriter("a" + file));
+			PrintWriter sortie = new PrintWriter(tampon);
+			sortie.println(FirstLine);
+			sortie.println(consensusStr);
+
+			sortie.flush();
+			sortie.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 
 	}
 

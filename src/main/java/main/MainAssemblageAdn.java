@@ -85,10 +85,20 @@ public class MainAssemblageAdn {
 		System.out.println("Fin de la calcul de la matrice consensus");
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
-		char[] consensus= AlignementMultiple.voteMajorite(matrix);
-        utils.generateCibleFileFast(args[1], consensus, args[0]);
+		char[] consensus = AlignementMultiple.voteMajorite(matrix);
+		utils.generateCibleFileFast(args[1], consensus, args[0]);
 		System.out.println("Fint du vote ");
-
+		Map<String, String> argsMap = new HashMap<String, String>();
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-out")) {
+				argsMap.put("-out", args[i + 1]);
+			}
+			if (args[i].equals("-out-ic")) {
+				argsMap.put("-out-ic", args[i + 1]);
+			}
+		}
+		argsMap.put("fragmentsFasta", args[0]);
+		utils.generateCibleFileFast(argsMap.get("-out"), consensus, argsMap.get("fragmentsFasta"));
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 
 	}
