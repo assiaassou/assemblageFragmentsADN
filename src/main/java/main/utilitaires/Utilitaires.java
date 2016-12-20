@@ -57,7 +57,7 @@ public class Utilitaires {
 
 		FileWriter writer = new FileWriter(file);
 		String consensusStr = String.valueOf(consensus);
-		String FirstLine = "> 1 Collection " + this.getCollectionName(filePathFasta) + "  Longueur " + consensus.length
+		String FirstLine = "> Groupe 1 Collection " + this.getCollectionName(filePathFasta) + "  Longueur " + consensus.length
 				+ "  ";
 		writer.write(FirstLine);
 		writer.write(System.getProperty("line.separator"));
