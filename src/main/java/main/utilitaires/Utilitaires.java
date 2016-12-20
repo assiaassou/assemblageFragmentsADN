@@ -1,8 +1,11 @@
 package main.utilitaires;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -10,7 +13,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import alignementEtConsensus.AlignementMultiple;
 import main.classes.Arc;
 
 public class Utilitaires {
@@ -24,18 +30,57 @@ public class Utilitaires {
 		// writer.close();
 	}
 
-	
-	public void displayArrayLists(ArrayList<ArrayList<Character>> arrayLists){
-		for(ArrayList<Character> arraylist : arrayLists){
+	public void displayArrayLists(ArrayList<ArrayList<Character>> arrayLists) {
+		for (ArrayList<Character> arraylist : arrayLists) {
 			System.out.println("");
-			for(Character c: arraylist){
-				System.out.print(c+"  ");
+			for (Character c : arraylist) {
+				System.out.print(c + "  ");
 			}
 		}
 	}
-	public void displayArrayList(){
-		
+
+	public int getCollectionName(String filePath) throws IOException {
+		BufferedReader brTest = new BufferedReader(new FileReader(filePath));
+		String firstLine = brTest.readLine();
+		String a = "", b = "";
+		// String to be scanned to find the pattern.
+		String text = "Key - Value";
+		Pattern pairRegex = Pattern.compile("(.*collection)(\\d+)");
+		Matcher matcher = pairRegex.matcher(text);
+		if (matcher.matches()) {
+			a = matcher.group(1);
+			b = matcher.group(2);
+		}
+		System.out.println(a);
+		System.out.println(b);
+		return Integer.valueOf(b);
+
 	}
+
+	public void generateCibleFileFast(String filePathe, char[] consensus, String filePathFasta) throws IOException {
+		File file = new File(filePathe);
+
+		// creates the file
+		file.createNewFile();
+
+		// creates a FileWriter Object
+		int collectionNumber = this.getCollectionName(filePathFasta);
+		FileWriter writer = new FileWriter(file);
+		String consensusStr = String.valueOf(consensus);
+		String FirstLine = "> 1 Collection " + collectionNumber + "Longueur " + consensus.length;
+		writer.write(consensusStr);
+		// Writes the content to the file
+		writer.write(consensus);
+		writer.flush();
+		writer.close();
+		
+
+	}
+
+	public void displayArrayList() {
+
+	}
+
 	public void createraph(Integer[] nodes, List<Integer[]> arcs, Integer[][] matrix) {
 		try {
 
@@ -66,14 +111,14 @@ public class Utilitaires {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Character> convertCharArrayToCharacterArray(char[] chars){
-		ArrayList<Character> temporaryList=new ArrayList<Character>();
-		for(char s: chars){
+
+	public ArrayList<Character> convertCharArrayToCharacterArray(char[] chars) {
+		ArrayList<Character> temporaryList = new ArrayList<Character>();
+		for (char s : chars) {
 			temporaryList.add(new Character(s));
 		}
 		return temporaryList;
-		
+
 	}
 
 	public void displayMatrix(char[][] matrix) throws IOException {

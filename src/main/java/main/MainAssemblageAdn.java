@@ -11,7 +11,7 @@ import java.util.Map;
 import alignementEtConsensus.AlignementMultiple;
 import alignementEtConsensus.CoupleFragments;
 import alignementEtConsensus.ReconstitutionAlignementOpt;
-
+import main.utilitaires.Utilitaires;
 import ordonnerLesFragments.HamiltonianPath;
 import rechercheDesChevauchements.FragmentADN;
 
@@ -29,7 +29,7 @@ public class MainAssemblageAdn {
 	 */
 	public static void main(String[] args) throws IOException {
 		long startTime = System.nanoTime();
-
+		Utilitaires utils = new Utilitaires();
 		System.out.println("Début de la construction du chemin Hameltonien");
 		HamiltonianPath ga = new HamiltonianPath(args[0]);
 		ga.hameltonienPath();
@@ -39,7 +39,7 @@ public class MainAssemblageAdn {
 		long endTime = System.nanoTime();
 
 		System.out.println("Fin de la construction du chemin Hameltonien");
-		System.out.println("Durée: " + ((endTime - startTime)/1000000)+"ms");
+		System.out.println("Durée: " + ((endTime - startTime) / 1000000) + "ms");
 		for (Integer a : finalPath) {
 			if (a != null) {
 				cheminHameltonienFinale.add(a);
@@ -85,21 +85,9 @@ public class MainAssemblageAdn {
 		System.out.println("Fin de la calcul de la matrice consensus");
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
-		String str = String.valueOf(AlignementMultiple.voteMajorite(matrix));
+		char[] consensus= AlignementMultiple.voteMajorite(matrix);
+        utils.generateCibleFileFast(args[1], consensus, args[0]);
 		System.out.println("Fint du vote ");
-		File file = new File("/home/bellafkih/Hello1.txt");
-	      
-	      // creates the file
-	      file.createNewFile();
-	      
-	      // creates a FileWriter Object
-	      FileWriter writer = new FileWriter(file); 
-	      
-	      // Writes the content to the file
-	      writer.write(str); 
-	      writer.flush();
-	      writer.close();
-
 
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 
