@@ -69,7 +69,9 @@ public class AlignementMultiple {
 			if (result.size() == 1) {
 				consensus[i] = result.get(0);
 			} else {
-				consensus[i] = result.get(new Random().nextInt(result.size() - 1));
+				//consensus[i] = result.get(new Random().nextInt(result.size() - 1));
+				consensus[i] = result.get('-');
+
 			}			
 		}
 		
