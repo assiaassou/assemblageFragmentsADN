@@ -187,21 +187,8 @@ public Integer[][] alignementSemiGlobal ( ){
 					colonne = i;
 				}
 			
-			// verifier si on a plusieurs valeurs = maxLigne dans la derniere ligne
-			// et mettre leurs positions dans ArrayList
-			ArrayList tab=new ArrayList();
-			for (i = 0; i < a[0].length; i++)
-				if (a[a.length - 1][i] == maxLigne) {
-					tab.add(i);	
-				}
-			
-			// choisir une des ces posisitions aléatoirement 
-			int rnd = (int)(Math.random()*tab.size());
-			// retourner la val de la position choisie
-		    colonne= (Integer) tab.get(rnd); 
-			
 		 // prendre juste le max de la derniere ligne 
-		    return max = a[a.length - 1][colonne];
+		    return max = maxLigne;
 		 		
 			
 		/*	//Calcule max derniere colonne

@@ -355,8 +355,25 @@ public class ReconstitutionAlignementOpt {
 						&& key.getPositionColonne() == clé.getPositionColonne()) {
 					// choisir aléatoirement une source parmi les differentes
 					// sources possible
-					int sourceChoisie = (int) (Math.random() * mapPositionsCasesEtSources
-							.get(key).size());
+					int test=0;
+					int sourceChoisie = 0;
+				//	int sourceChoisie = (int) (Math.random() * mapPositionsCasesEtSources.get(key).size());
+					for (int i = 0; i < mapPositionsCasesEtSources.get(key).size(); i++){
+						if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==1){
+							//test=1;
+							sourceChoisie=i;
+							i=mapPositionsCasesEtSources.get(key).size();
+						}else if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==-1){
+							test=2;
+							sourceChoisie=i;
+						}else if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==-2 && test!=2){
+						//	test=3;
+							sourceChoisie=i;
+						}
+							
+					}
+					
+					
 					x = mapPositionsCasesEtSources.get(key).get(sourceChoisie);
 				}
 			}
