@@ -28,14 +28,25 @@ public class MainAssemblageAdn {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		String[] args_ = new String[8];
+		args_[0] = "/home/bellafkih/testgit/assemblageFragmentsADN/target/collection4.fasta";
+		args_[1] = "-out";
+		args_[2] = "/home/bellafkih/testgit/assemblageFragmentsADN/target/resultat.fasta";
+
+		args_[3] = "-out-ic";
+		args_[4] = "resultatCom.fasta";
+
+		args= args_;
 		long startTime = System.nanoTime();
 		Utilitaires utils = new Utilitaires();
 		System.out.println("Début de la construction du chemin Hameltonien");
 		HamiltonianPath ga = new HamiltonianPath(args[0]);
 		ga.hameltonienPath();
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
 		Integer[] finalPath = ga.constructFinalPath();
+		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
 		ArrayList<Integer> cheminHameltonienFinale = new ArrayList<Integer>();
-
+		System.out.println("ccccccccccccccccccccc");
 		long endTime = System.nanoTime();
 
 		System.out.println("Fin de la construction du chemin Hameltonien");
@@ -86,8 +97,8 @@ public class MainAssemblageAdn {
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
 
-	//	char[] consensus= AlignementMultiple.voteMajorite(matrix);
-    //    utils.generateCibleFileFast(args[1], consensus, args[0]);
+		// char[] consensus= AlignementMultiple.voteMajorite(matrix);
+		// utils.generateCibleFileFast(args[1], consensus, args[0]);
 
 		char[] consensus = AlignementMultiple.voteMajorite(matrix);
 		utils.generateCibleFileFast(args[1], consensus, args[0]);
