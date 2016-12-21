@@ -236,7 +236,7 @@ public class HamiltonianPath {
 	public Integer[] constructFinalPath() throws FileNotFoundException, UnsupportedEncodingException {
 		Integer headOfPath = this.getHead();
 		int i = 0;
-		Integer[] contigFragments = new Integer[totalNumberOfFragments];
+		Integer[] contigFragments = new Integer[totalNumberOfFragments/2];
 		contigFragments[0] = headOfPath;
 
 		/*
@@ -248,7 +248,7 @@ public class HamiltonianPath {
 		PrintWriter writer = new PrintWriter("arcs.net", "UTF-8");
 
 		
-		writer.println("*arcs");
+		//writer.println("*arcs");
 
 		for (Integer[] n : this.listOfSelectedArcs) {
 			//writer.println(n[0] + " " + n[1]);
@@ -259,18 +259,25 @@ public class HamiltonianPath {
 		
 		int j;
 		i = i + 1;
-		while (i != totalNumberOfFragments / 2) {
+		while (i <= totalNumberOfFragments / 2) {
+			System.out.println("current head is "+headOfPath);
 			for (j = 0; j < copyOfListOfSelectedArcs.size(); j++) {
-				if (headOfPath == copyOfListOfSelectedArcs.get(j)[0]) {
+				System.out.println(j);
+				System.out.println(copyOfListOfSelectedArcs.get(j)[0]+ "  "+copyOfListOfSelectedArcs.get(j)[1]);
+				if (headOfPath.equals( copyOfListOfSelectedArcs.get(j)[0])) {
 					contigFragments[i] = copyOfListOfSelectedArcs.get(j)[1];
 					headOfPath = copyOfListOfSelectedArcs.get(j)[1];
+					System.out.println("heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad"+headOfPath);
 					copyOfListOfSelectedArcs.remove(copyOfListOfSelectedArcs.get(j));
 					i++;
 					break;
 				}
 			}
+			if(i==totalNumberOfFragments/2){
+				break;
+			}
 		}
-
+/*
 		writer.println("*Vertices");
 		
 		
@@ -282,6 +289,7 @@ public class HamiltonianPath {
 
 		}
 		writer.close();
+		*/
 		return contigFragments;
 	}
 
