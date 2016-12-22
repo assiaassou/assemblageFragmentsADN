@@ -65,17 +65,17 @@ public class Utilitaires {
 		writer.flush();
 		writer.close();
 
-		try {
-			BufferedWriter tampon = new BufferedWriter(new FileWriter("a" + file));
-			PrintWriter sortie = new PrintWriter(tampon);
-			sortie.println(FirstLine);
-			sortie.println(consensusStr);
-
-			sortie.flush();
-			sortie.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+//		try {
+//			BufferedWriter tampon = new BufferedWriter(new FileWriter("a" + file));
+//			PrintWriter sortie = new PrintWriter(tampon);
+//			sortie.println(FirstLine);
+//			sortie.println(consensusStr);
+//
+//			sortie.flush();
+//			sortie.close();
+//		} catch (IOException e) {
+//			System.out.println(e);
+//		}
 
 	}
 

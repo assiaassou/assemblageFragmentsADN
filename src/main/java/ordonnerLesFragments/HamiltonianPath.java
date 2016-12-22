@@ -260,14 +260,10 @@ public class HamiltonianPath {
 		int j;
 		i = i + 1;
 		while (i <= totalNumberOfFragments / 2) {
-			System.out.println("current head is "+headOfPath);
 			for (j = 0; j < copyOfListOfSelectedArcs.size(); j++) {
-				System.out.println(j);
-				System.out.println(copyOfListOfSelectedArcs.get(j)[0]+ "  "+copyOfListOfSelectedArcs.get(j)[1]);
 				if (headOfPath.equals( copyOfListOfSelectedArcs.get(j)[0])) {
 					contigFragments[i] = copyOfListOfSelectedArcs.get(j)[1];
 					headOfPath = copyOfListOfSelectedArcs.get(j)[1];
-					System.out.println("heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad"+headOfPath);
 					copyOfListOfSelectedArcs.remove(copyOfListOfSelectedArcs.get(j));
 					i++;
 					break;
