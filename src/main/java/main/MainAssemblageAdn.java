@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import alignementEtConsensus.AlignementMultiple;
 import alignementEtConsensus.AlignementMultipleArrayList;
 import alignementEtConsensus.CoupleFragments;
 import alignementEtConsensus.ReconstitutionAlignementOpt;
@@ -29,9 +28,7 @@ public class MainAssemblageAdn {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		String[] args_ = new String[] { "/home/bellafkih/testgit/Tests/Collection1-SimplifiВe.FASTA", "-out",
-				"/home/bellafkih/faksa.fasta", "-out-ic", "resultat-ic.fasta" };
-		// args = args_;
+
 		long startTime = System.nanoTime();
 		Utilitaires utils = new Utilitaires();
 		System.out.println("Début de la construction du chemin Hameltonien");

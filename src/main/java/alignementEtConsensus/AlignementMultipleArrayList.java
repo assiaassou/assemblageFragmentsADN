@@ -54,7 +54,7 @@ public class AlignementMultipleArrayList {
 		int cols, cols_, lines, lines_;
 		char[][] matrix = null;
 		ArrayList<Character> lastLineMatrix = new ArrayList<Character>();
-		ArrayList<ArrayList<Character>> matrice = new ArrayList<ArrayList<Character>>();
+		ArrayList<ArrayList<Character>>  matriceConsensus = new ArrayList<ArrayList<Character>>();
 		for (char[][] currentAlignement : listAlignement) {
 			ArrayList<Character> align0 = u.convertCharArrayToCharacterArray(currentAlignement[0]);
 			ArrayList<Character> align1 = u.convertCharArrayToCharacterArray(currentAlignement[1]);
@@ -64,31 +64,31 @@ public class AlignementMultipleArrayList {
 			// alignement.add(align1);
 			// u.displayArrayLists(alignement);
 
-			int pfstp, pfsss;
+			int positionFirstSymboletPrecedent, pfsss;
 			int currAliCols = currentAlignement[0].length;
 			if (count == 0) { // c'est le premier alignement
-				matrice.add(align0);
-				matrice.add(align1);
+				matriceConsensus.add(align0);
+				matriceConsensus.add(align1);
 				count++;
 				lastLineMatrix = align1;
 				// System.out.println("je m'execute une seule fois ^_^");
 
 			} else {
 
-				pfstp = 0;
-				while (lastLineMatrix.get(pfstp) == '.') {
-					pfstp++;
+				positionFirstSymboletPrecedent = 0;
+				while (lastLineMatrix.get(positionFirstSymboletPrecedent) == '.') {
+					positionFirstSymboletPrecedent++;
 				}
 				// u.displayLine(lastLineMatrix);
 
 				if (currentAlignement[0][0] != '.') {
 
-					for (int j = 0; j < pfstp; j++) {
+					for (int j = 0; j < positionFirstSymboletPrecedent; j++) {
 						align0.add(0, '.');
 						align1.add(0, '.');
 					}
-					matrice.add(align0);
-					matrice.add(align1);
+					matriceConsensus.add(align0);
+					matriceConsensus.add(align1);
 				} // fin if alligne commence pas par '.'
 				if (currentAlignement[0][0] == '.') {
 					int decalage;
@@ -96,18 +96,18 @@ public class AlignementMultipleArrayList {
 					while (currentAlignement[0][pfsss] == '.') {
 						pfsss++;
 					}
-					decalage = pfstp - pfsss;
+					decalage = positionFirstSymboletPrecedent - pfsss;
 					if (decalage < 0) {
 						int decalageAbs = Math.abs(decalage);
 
-						for (ArrayList<Character> line : matrice) {
+						for (ArrayList<Character> line : matriceConsensus) {
 
 							for (int j = 0; j < decalageAbs; j++) {
 								line.add(0, '.');
 							}
 						}
-						matrice.add(align0);
-						matrice.add(align1);
+						matriceConsensus.add(align0);
+						matriceConsensus.add(align1);
 
 					} // fin if decalage <0
 					else {
@@ -115,8 +115,8 @@ public class AlignementMultipleArrayList {
 							align0.add(0, '.');
 							align1.add(0, '.');
 						}
-						matrice.add(align0);
-						matrice.add(align1);
+						matriceConsensus.add(align0);
+						matriceConsensus.add(align1);
 
 					} // fin if decalage >=0
 
@@ -191,9 +191,9 @@ public class AlignementMultipleArrayList {
 				//System.out.println("Injection des gaps");
 
 				int ind = 0;
-				int size = matrice.size();
-				Character t = matrice.get(size - 3).get(ind);
-				Character s = matrice.get(size - 2).get(ind);
+				int size = matriceConsensus.size();
+				Character t = matriceConsensus.get(size - 3).get(ind);
+				Character s = matriceConsensus.get(size - 2).get(ind);
 				// while( !t.equals(null) && !s.equals(null)){
 
 				while (t != null && s != null) {
@@ -203,39 +203,39 @@ public class AlignementMultipleArrayList {
 					} else if (s.equals('-')) {
 
 						for (int k = 0; k < size - 2; k++) {
-							int taille = matrice.get(k).size();
+							int taille = matriceConsensus.get(k).size();
 							if (ind < taille) {
-								matrice.get(k).add(ind, '-');
+								matriceConsensus.get(k).add(ind, '-');
 							}
 						}
 
 					} else if (t.equals('-')) {
 						for (int i = size - 2; i < size; i++) {
-							if (matrice.get(i).get(ind).equals('.')) {
-								matrice.get(i).add(ind, '.');
+							if (matriceConsensus.get(i).get(ind).equals('.')) {
+								matriceConsensus.get(i).add(ind, '.');
 							} else {
-								matrice.get(i).add(ind, '-');
+								matriceConsensus.get(i).add(ind, '-');
 							}
 						}
 					}
 
 					ind++;
-					if (ind < matrice.get(size - 3).size()) {
-						t = matrice.get(size - 3).get(ind);
+					if (ind < matriceConsensus.get(size - 3).size()) {
+						t = matriceConsensus.get(size - 3).get(ind);
 					} else {
 						t = null;
 					}
-					if (ind < matrice.get(size - 2).size()) {
-						s = matrice.get(size - 2).get(ind);
+					if (ind < matriceConsensus.get(size - 2).size()) {
+						s = matriceConsensus.get(size - 2).get(ind);
 					} else {
 						s = null;
 					}
 					// u.displayArrayLists(matrice);
 				}
-				lastLineMatrix = matrice.get(matrice.size() - 1);
+				lastLineMatrix = matriceConsensus.get(matriceConsensus.size() - 1);
 
-				int removedIndex = matrice.size() - 2;
-				matrice.remove(removedIndex);
+				int removedIndex = matriceConsensus.size() - 2;
+				matriceConsensus.remove(removedIndex);
 
 			} // fin count
 				// System.out.println("apres injection du gap");
@@ -245,7 +245,7 @@ public class AlignementMultipleArrayList {
 
 			//u.displayArrayLists(matrice);
 		} // fin for alignements
-		return matrice;
+		return matriceConsensus;
 	}
 
 	public static char[] voteMajorite(ArrayList<ArrayList<Character>> consensus) throws IOException {
