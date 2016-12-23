@@ -28,13 +28,6 @@ public class MainAssemblageAdn {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-<<<<<<< HEAD
-		String[] args_ = new String[8];
-	    args_[0] = "/home/assia/Téléchargements/Collection1-SimplifiВe.FASTA";
-		args_[1] = "-out";
-		args_[2] = "/home/assia/Workspace-BioInfo/assemblage/assemblageFragmentsADN/resultat.fasta";
-=======
->>>>>>> b464d629e99bd30c12e2531bbd53dcb0abd1efec
 
 		long startTime = System.nanoTime();
 		Utilitaires utils = new Utilitaires();

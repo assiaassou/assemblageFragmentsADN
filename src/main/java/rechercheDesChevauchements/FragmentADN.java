@@ -18,7 +18,6 @@ public class FragmentADN {
 		this.id = id;
 	}
 
-
 	public char[] getAcides() {
 		return acides;
 	}
@@ -32,22 +31,19 @@ public class FragmentADN {
 		this.id = id;
 		this.acides = acides;
 	}
-	
-	
 
 	public FragmentADN complementaire() {
 
 		FragmentADN fragComplementaire = new FragmentADN();
-		//private int id;
-		//private Boolean complemente;
-		char[] acides=new char[this.acides.length];
-		
-		
+		// private int id;
+		// private Boolean complemente;
+		char[] acides = new char[this.acides.length];
+
 		int j;
-		int i=0;
-		
-		for (j = this.acides.length-1; j >= 0; j--) {
-	
+		int i = 0;
+
+		for (j = this.acides.length - 1; j >= 0; j--) {
+
 			switch (this.acides[j]) {
 			case 'a':
 				acides[i] = 't';
@@ -63,8 +59,8 @@ public class FragmentADN {
 			}
 			i++;
 		}
-	
-		fragComplementaire.setId(this.id+1);
+
+		fragComplementaire.setId(this.id + 1);
 		fragComplementaire.setAcides(acides);
 		return fragComplementaire;
 	}
@@ -72,9 +68,9 @@ public class FragmentADN {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		 
-		String str=new String(this.acides);
-		return "id " + this.id + " :  "+str;
+
+		String str = new String(this.acides);
+		return "id " + this.id + " :  " + str;
 	}
 
 }

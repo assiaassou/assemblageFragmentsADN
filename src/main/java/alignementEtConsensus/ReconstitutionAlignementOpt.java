@@ -55,6 +55,7 @@ public class ReconstitutionAlignementOpt {
 		Map<CoupleFragments, char[][]> mapTousLesAlignementsOptimaux = new HashMap<CoupleFragments, char[][]>();
 		// Map contient la position de chaque case ds la matrice de
 		// programmation dynamique et positions de ses sources
+
 		Map<PositionScore, ArrayList<PositionScore>> mapPositionsCasesEtSources = new HashMap<PositionScore, ArrayList<PositionScore>>();
 
 		ResultatProgDynam resultatProgDynam = new ResultatProgDynam();
@@ -64,70 +65,30 @@ public class ReconstitutionAlignementOpt {
 					this.cheminAmiltonien.get(i) - 1).getAcides();
 			char[] acidesT = this.listeTousFragEtCompInv.get(
 					this.cheminAmiltonien.get(i + 1) - 1).getAcides();
-			// char [] acidesS=this.listeTousFragEtCompInv.get(16).getAcides();
-			// char [] acidesT=this.listeTousFragEtCompInv.get(0).getAcides();
-			// char [] acidesK=this.listeTousFragEtCompInv.get(21).getAcides();
 
 			int idS = this.cheminAmiltonien.get(i);
 			int idT = this.cheminAmiltonien.get(i + 1);
-
-			// char []acidesT={'c','a','g','c','g','t','g','g'};
-			// char []
-			// acidesS={'c','a','g','c','a','c','t','t','g','g','a','t','t','c','t','c','g','g'};
-			// char [] acidesT={'a','g','c'};
-			// char [] acidesS={'a','a','a','c'};
-			// int idS=0;
-			// int idT=0+1;
 
 			resultatProgDynam = programmationDynamique(acidesS, acidesT);
 			mapPositionsCasesEtSources = resultatProgDynam
 					.getMapPositionsCasesEtSources();
 			PositionScore meilleurScore = new PositionScore();
 			meilleurScore = score(resultatProgDynam.getA());
-			System.out.println("meilleur Score" + meilleurScore);
-			// ------------------reconsituter
-			// l'alignement------------------------
-			// ----------premiere etape-----------------------
+
 			ArrayList tableAlignementOptimal = new ArrayList();
 			tableAlignementOptimal.add(meilleurScore);
 			ArrayList<ArrayList<PositionScore>> listAlignementsPossibles = new ArrayList<ArrayList<PositionScore>>();
-			Set<PositionScore> listKeys2 = mapPositionsCasesEtSources.keySet(); // Obtenir
-																				// la
-																				// liste
-																				// des
-																				// clés
+			Set<PositionScore> listKeys2 = mapPositionsCasesEtSources.keySet();
+
 			// ajouter le meilleur score a la premier case du tableau
 			tableAlignementOptimal = ReconstituerAlignement(
 					tableAlignementOptimal, meilleurScore,
 					mapPositionsCasesEtSources);
 
-		/*	for (i = 0; i < tableAlignementOptimal.size(); i++) {
-				System.out.println("case indice" + i + "est"
-						+ tableAlignementOptimal.get(i));
-			}*/
-
-			// ----------Deuxieme étape
-			// -----------------------------------------
-			// le choix un alignement optimal parmi +ieurs possiblité sera
-			// aléatoire
-			// on choisi un numéro de possibilité
 			int alignementChoisi = (int) (Math.random() * listAlignementsPossibles
 					.size());
 
 			CoupleFragments couplefragments = new CoupleFragments(idS, idT);
-
-			System.out
-					.println("************************************************");
-			System.out.println("Alignements du couple : (" + idS + "," + idT
-					+ ")");
-			// System.out.println("le nbr d'alignements possibles est:"+listAlignementsPossibles.size());
-			System.out
-					.println("************************************************");
-
-			/* System.out.println("POSSIBILITE N  " + alignementChoisi); */
-			// ReconstituerAlignement2(listAlignementsPossibles.get(alignementChoisi),acidesS,acidesT);
-
-			// --------------Fin-----------------------------------
 
 			char[][] matriceAl = ReconstituerAlignement2(
 					tableAlignementOptimal, acidesS, acidesT);
@@ -141,68 +102,33 @@ public class ReconstitutionAlignementOpt {
 	}
 
 	public ResultatProgDynam programmationDynamique(char[] s, char[] t) {
-		// Map contient la position de chaque case ds la matrice de
-		// programmation dynamique et positions de ses sources
+
 		Map<PositionScore, ArrayList<PositionScore>> mapPositionsCasesEtSources = new HashMap<PositionScore, ArrayList<PositionScore>>();
 
 		int[][] a = new int[s.length + 1][t.length + 1];
 		int ll = s.length, gg = t.length + 1;
 
-		// System.out.println("   la langueure est    "+ll);
-		// System.out.println("   la largeure est    "+gg);
-
-		// initialisation de la matrice a
 		int i = 0;
 		int j = 0;
 		ArrayList<PositionScore> listePossiblités = new ArrayList<PositionScore>();
 		PositionScore positionScore = new PositionScore(i, j, a[i][j]);
 		for (i = 0; i <= s.length; i++) {
 			a[i][0] = 0;
-			// a[i][0]=i*(-2);// juste pour tester a supprimer
-			positionScore = new PositionScore(i, 0, a[i][0]);// ajouter juste pr
-																// tester exple
-			mapPositionsCasesEtSources.put(positionScore, listePossiblités);// ajouter
-																			// juste
-																			// pr
-																			// tester
-																			// exple
+			positionScore = new PositionScore(i, 0, a[i][0]);
+			mapPositionsCasesEtSources.put(positionScore, listePossiblités);
 		}
 
 		for (j = 0; j <= t.length; j++) {
 			a[0][j] = 0;
-			// a[0][j]=j*(-2);
-			positionScore = new PositionScore(0, j, a[0][j]);// ajouter juste pr
-																// tester exple
-			mapPositionsCasesEtSources.put(positionScore, listePossiblités);// ajouter
-																			// juste
-																			// pr
-																			// tester
-																			// exple
+			positionScore = new PositionScore(0, j, a[0][j]);
+			mapPositionsCasesEtSources.put(positionScore, listePossiblités);
 		}
-
-		// l'affichage de t
-		/*
-		 * System.out.print("      "); int k; for(j=0;j<=t.length;j++) {
-		 * if(j==0) System.out.print("0"+"   |   "); else { k=j-1;
-		 * System.out.print(t[k]+"   |   "); } } System.out.println(
-		 * "\n ____________________________________________________");
-		 */
-		// ------
-
-		// appliquer l algo de programmation dynamique sur le reste de la
-		// matrice a
 
 		int g = -2, p;
 		int sim1, sim2, sim3;
 		int nbrPossibilitésconduiMax;
 
 		for (i = 0; i <= s.length; i++) {
-			// l'affichage de s
-			/*
-			 * int l; if(i==0) System.out.print("0"+"   |   "); else { l=i-1;
-			 * System.out.print(s[l]+"   |   "); }
-			 */
-			// ------
 			for (j = 0; j <= t.length; j++)
 
 			{
@@ -241,41 +167,21 @@ public class ReconstitutionAlignementOpt {
 
 				}
 
-				// System.out.print(a[i][j] +"   |   ");
 			}
-			// System.out.println("\n __________________________________________________ ");
 
 		}
-
-		// Afficher le contenu du MAP
-		/*
-		 * 
-		 * Set<PositionScore> listKeys=mapPositionsCasesEtSources.keySet(); //
-		 * Obtenir la liste des clés Iterator<PositionScore>
-		 * iterateur=listKeys.iterator(); //premier iterateur
-		 * 
-		 * while(iterateur.hasNext()) { PositionScore key= iterateur.next();
-		 * 
-		 * System.out.println (key+"\n =>\n ");
-		 * 
-		 * for( i = 0; i < mapPositionsCasesEtSources.get(key).size(); i++) {
-		 * System.out.println("donnée à l'indice " + i + " = "
-		 * +mapPositionsCasesEtSources.get(key).get(i)); }
-		 * System.out.println("----------------------------------" ); }
-		 */// ----------------------------
 
 		return new ResultatProgDynam(a, mapPositionsCasesEtSources);
 	}
 
-	// ************** Calculer Score***************************
 	public PositionScore score(int[][] a) {
 
-		// le max pour alignement semi global
-		int i, maxLigne, maxColonne, max;
-		int ligne = 0, colonne = 0;
+		int i, maxLigne, max;
+		int colonne = 0;
 
 		PositionScore positionMax = new PositionScore();
 		// Calcule max derniere ligne
+
 		maxLigne = a[a.length - 1][1];
 		for (i = 0; i < a[0].length; i++)
 			if (a[a.length - 1][i] > maxLigne && i != 0) {
@@ -285,61 +191,27 @@ public class ReconstitutionAlignementOpt {
 
 		// verifier si on a plusieurs valeurs = maxLigne dans la derniere ligne
 		// et mettre leurs positions dans ArrayList
-		ArrayList tab=new ArrayList();
+
+		ArrayList tab = new ArrayList();
 		for (i = 0; i < a[0].length; i++)
 			if (a[a.length - 1][i] == maxLigne) {
-				tab.add(i);	
+				tab.add(i);
 			}
-		
+
 		// choisir une des ces posisitions aléatoirement 
-		int rnd = (int)(Math.random()*tab.size());
-		// retourner la val de la position choisie
-	    colonne= (Integer) tab.get(rnd); 
-		
-	 // prendre juste le max de la derniere ligne 
-	 		max = a[a.length - 1][colonne];
-	 		positionMax.setPositionLigne(a.length - 1);
-	 		positionMax.setPositionColonne(colonne);
-	 		positionMax.setScoreCalculé(max);
-	 		return positionMax;
+				int rnd = (int)(Math.random()*tab.size());
+				// retourner la val de la position choisie
+		colonne= (Integer) tab.get(rnd); 
+		//colonne = (Integer) tab.get(tab.size() - 1);
 
-		
-	/*	// Calcule max derniere colonne
-		maxColonne = a[1][a[0].length - 1];
-		for (i = 1; i < a.length; i++)
-			if (a[i][a[0].length - 1] > maxColonne) {
-				maxColonne = a[i][a[0].length - 1];
-				ligne = i;
-			}
-	*/
-	    
-		
-		
-	/*	if (maxLigne == maxColonne) {
-			max = maxLigne;
-			positionMax.setPositionLigne(a.length - 1);
-			positionMax.setPositionColonne(colonne);
-			positionMax.setScoreCalculé(max);
-			return positionMax;
-		} else {
-			max = Math.max(maxLigne, maxColonne);
-
-			if (max == maxLigne) {
-				positionMax.setPositionLigne(a.length - 1);
-				positionMax.setPositionColonne(colonne);
-				positionMax.setScoreCalculé(max);
-				return positionMax;
-			} else {
-				positionMax.setPositionLigne(ligne);
-				positionMax.setPositionColonne(a[0].length - 1);
-				positionMax.setScoreCalculé(max);
-				return positionMax;
-			}
-		} */
+		max = a[a.length - 1][colonne];
+		positionMax.setPositionLigne(a.length - 1);
+		positionMax.setPositionColonne(colonne);
+		positionMax.setScoreCalculé(max);
+		return positionMax;
 
 	}
 
-	// ****************************************
 	public static ArrayList ReconstituerAlignement(
 			ArrayList tableAlignementOptimal,
 			PositionScore clé,
@@ -353,27 +225,27 @@ public class ReconstitutionAlignementOpt {
 				PositionScore key = iterateur.next();
 				if (key.getPositionLigne() == clé.getPositionLigne()
 						&& key.getPositionColonne() == clé.getPositionColonne()) {
-					// choisir aléatoirement une source parmi les differentes
-					// sources possible
-					int test=0;
+
+					int test = 0;
 					int sourceChoisie = 0;
-				//	int sourceChoisie = (int) (Math.random() * mapPositionsCasesEtSources.get(key).size());
-					for (int i = 0; i < mapPositionsCasesEtSources.get(key).size(); i++){
-						if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==1){
-							//test=1;
-							sourceChoisie=i;
-							i=mapPositionsCasesEtSources.get(key).size();
-						}else if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==-1){
-							test=2;
-							sourceChoisie=i;
-						}else if(mapPositionsCasesEtSources.get(key).get(i).getScoreCalculé()==-2 && test!=2){
-						//	test=3;
-							sourceChoisie=i;
+					for (int i = 0; i < mapPositionsCasesEtSources.get(key)
+							.size(); i++) {
+						if (mapPositionsCasesEtSources.get(key).get(i)
+								.getScoreCalculé() == 1) {
+							sourceChoisie = i;
+							i = mapPositionsCasesEtSources.get(key).size();
+						} else if (mapPositionsCasesEtSources.get(key).get(i)
+								.getScoreCalculé() == -1) {
+							test = 2;
+							sourceChoisie = i;
+						} else if (mapPositionsCasesEtSources.get(key).get(i)
+								.getScoreCalculé() == -2
+								&& test != 2) {
+							sourceChoisie = i;
 						}
-							
+
 					}
-					
-					
+
 					x = mapPositionsCasesEtSources.get(key).get(sourceChoisie);
 				}
 			}
@@ -382,108 +254,6 @@ public class ReconstitutionAlignementOpt {
 		}
 		return tableAlignementOptimal;
 	}
-
-	/*--------------------------------------------
-	 //*********************	
-	 public static   ArrayList<ArrayList<PositionScore>> ReconstituerAlignement (ArrayList tableAlignementOptimal, PositionScore clé , Set<PositionScore> listKeys,
-	 Map<PositionScore, ArrayList<PositionScore>  > myMap2, ArrayList<ArrayList<PositionScore>> listAlignementsPossibles){
-
-
-	 //pour reconsituter l'alignement 
-	 if (clé.getPositionLigne()==0 || clé.getPositionColonne()==0){	
-	 //System.out.println(" IF111  ligne meilleur score est  " + clé.getPositionLigne()+" colonne  meilleur score est  " + clé.getPositionColonne());
-	 return listAlignementsPossibles;
-
-	 }
-	 else
-	 {//System.out.println(" ELSE  ligne meilleur score est  " + clé.getPositionLigne()+" colonne  meilleur score est  " + clé.getPositionColonne());
-
-	 //pour reconsituter l'alignement f
-	 Iterator<PositionScore> iterateur=listKeys.iterator(); //premier iterateur
-
-	 while(iterateur.hasNext())
-	 {
-
-	 PositionScore key= iterateur.next();
-	 //System.out.println(key.getPositionLigne()+"   "+clé.getPositionLigne() +"   "+ key.getPositionColonne()+"   "+clé.getPositionColonne());
-	 if(key.getPositionLigne()==clé.getPositionLigne() && key.getPositionColonne()==clé.getPositionColonne())
-	 {
-	
-	 if (myMap2.get(key).size()==1)
-	 {
-	 ArrayList tableAlignementOptimal1 = new ArrayList();
-	 tableAlignementOptimal1=updateAlignementOptimal(tableAlignementOptimal, myMap2.get(key).get(0), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(0);
-	 return ReconstituerAlignement (tableAlignementOptimal1,clé,listKeys,myMap2,listAlignementsPossibles);
-	 }
-	 if (myMap2.get(key).size()==2)
-	 {
-	 ArrayList tableAlignementOptimal1 = new ArrayList();
-	 tableAlignementOptimal1=updateAlignementOptimal(tableAlignementOptimal,myMap2.get(key).get(0), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(0);
-	 ReconstituerAlignement (tableAlignementOptimal1,clé,listKeys,myMap2,listAlignementsPossibles);
-	 ArrayList tableAlignementOptimal2 = new ArrayList();
-	 tableAlignementOptimal2=updateAlignementOptimal(tableAlignementOptimal,myMap2.get(key).get(1), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(1);
-	 return ReconstituerAlignement (tableAlignementOptimal2,clé,listKeys,myMap2,listAlignementsPossibles);
-	 }
-
-	 if (myMap2.get(key).size()==3)
-	 {
-	 ArrayList tableAlignementOptimal1 = new ArrayList();
-	 tableAlignementOptimal1=updateAlignementOptimal(tableAlignementOptimal,myMap2.get(key).get(0), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(0);
-	 ReconstituerAlignement (tableAlignementOptimal1,clé,listKeys,myMap2,listAlignementsPossibles);
-	 //--------------------------	
-	 ArrayList tableAlignementOptimal2 = new ArrayList();
-	 tableAlignementOptimal2=updateAlignementOptimal(tableAlignementOptimal,myMap2.get(key).get(1), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(1);
-	 ReconstituerAlignement (tableAlignementOptimal2,clé,listKeys,myMap2,listAlignementsPossibles);
-	 //----------------------------
-	 ArrayList tableAlignementOptimal3 = new ArrayList();
-	 tableAlignementOptimal3=updateAlignementOptimal(tableAlignementOptimal,myMap2.get(key).get(2), listAlignementsPossibles);
-	 clé=myMap2.get(key).get(2);
-	 return ReconstituerAlignement (tableAlignementOptimal3,clé,listKeys,myMap2,listAlignementsPossibles);
-	 }
-
-	
-	 }  
-
-	 }
-	 }
-	 return listAlignementsPossibles;
-
-
-	 }
-
-	 public static ArrayList updateAlignementOptimal(ArrayList<PositionScore> tableAlignementOptimal,PositionScore source, ArrayList<ArrayList<PositionScore>> listAlignementsPossibles){
-	 ArrayList table = new ArrayList();
-	 int i;
-
-	 for( i = 0; i < tableAlignementOptimal.size(); i++)
-	 {
-	 table.add(tableAlignementOptimal.get(i));
-	 }
-
-	 table.add(source);
-	
-
-
-	 Instant instant = Instant.now (); // Current date-time in UTC.
-	 String output = instant.toString ();
-
-
-	
-	 if (source.getPositionLigne()==0 || source.getPositionColonne()==0)
-	 {
-	
-	 System.out.println("calcul de possibilité "+ output);
-	 listAlignementsPossibles.add(table); //mettre alignement optimal dans la liste des alignements optimaux possibles
-	 }
-	 return table;
-
-	 }
-	 ----------------------------------------------------------*/
 
 	public static char[][] ReconstituerAlignement2(
 			ArrayList<PositionScore> tableAlignementOptimal, char s[], char t[]) {
@@ -534,23 +304,8 @@ public class ReconstitutionAlignementOpt {
 			h++;
 
 		}
-		System.out.println("\n \n \n ALIGNEMENT OPTIMAL EST :");
-		System.out.print("sAlignementOpt=");
+
 		int i;
-		for (i = sAlignementOpt.size() - 1; i >= 0; i--) {
-
-			System.out.print(sAlignementOpt.get(i));
-
-		}
-		System.out.println();
-
-		System.out.print("tAlignementOpt=");
-		for (i = tAlignementOpt.size() - 1; i >= 0; i--) {
-
-			System.out.print(tAlignementOpt.get(i));
-
-		}
-		System.out.println("\n \n -------------------------------------");
 
 		// Affichage de l'alignement obtenu de S
 		int j = sAlignementOpt.size() - 1;
@@ -619,7 +374,7 @@ public class ReconstitutionAlignementOpt {
 		int ligneDebutAlignS = tableAlignementOptimal.get(
 				tableAlignementOptimal.size() - 2).getPositionLigne();
 		int nbrColonneMatriceAlignement;
-		if (ligneDebutAlignS != 1){
+		if (ligneDebutAlignS != 1) {
 			nbrColonneMatriceAlignement = (tableAlignementOptimal
 					.get(tableAlignementOptimal.size() - 2).getPositionLigne())
 					+ (ttAlignementOpt.size() - 1);
@@ -627,21 +382,20 @@ public class ReconstitutionAlignementOpt {
 			if (difference > 0)
 				nbrColonneMatriceAlignement = nbrColonneMatriceAlignement
 						+ difference;
-		}
-		else{
-			
+		} else {
+
 			nbrColonneMatriceAlignement = (tableAlignementOptimal
 					.get(tableAlignementOptimal.size() - 2)
 					.getPositionColonne())
 					+ (ssAlignementOpt.size() - 1);
-		 difference = ssAlignementOpt.size() - nbrColonneMatriceAlignement;
-		if (difference > 0)
-			nbrColonneMatriceAlignement = nbrColonneMatriceAlignement
-					+ difference;
-		difference = ttAlignementOpt.size() - nbrColonneMatriceAlignement;
-		if (difference > 0)
-			nbrColonneMatriceAlignement = nbrColonneMatriceAlignement
-					+ difference;
+			difference = ssAlignementOpt.size() - nbrColonneMatriceAlignement;
+			if (difference > 0)
+				nbrColonneMatriceAlignement = nbrColonneMatriceAlignement
+						+ difference;
+			difference = ttAlignementOpt.size() - nbrColonneMatriceAlignement;
+			if (difference > 0)
+				nbrColonneMatriceAlignement = nbrColonneMatriceAlignement
+						+ difference;
 		}
 		// Remplire la matrice
 
@@ -651,9 +405,6 @@ public class ReconstitutionAlignementOpt {
 		int colonneDebutS = tableAlignementOptimal.get(
 				tableAlignementOptimal.size() - 2).getPositionColonne() - 1;
 		int colonneFinS = colonneDebutS + ssAlignementOpt.size();
-
-		System.out.println("colonneDebutS" + colonneDebutS);
-		System.out.println("colonneFinS" + colonneFinS);
 
 		i = colonneDebutS;
 		j = 0;
@@ -684,15 +435,6 @@ public class ReconstitutionAlignementOpt {
 				if (matriceAlignement[i][j] == 0)
 					matriceAlignement[i][j] = '.';
 			}
-
-		System.out.println();
-		System.out.println("la matrice est");
-		for (i = 0; i < 2; i++) {
-			for (j = 0; j < nbrColonneMatriceAlignement; j++) {
-				System.out.print(matriceAlignement[i][j]);
-			}
-			System.out.println();
-		}
 
 		return matriceAlignement;
 

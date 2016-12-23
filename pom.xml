@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>projet.BioInfo</groupId>
-	<artifactId>assemblageFragmentsAdnPrefRandom</artifactId>
-	<version>0.0.11-SNAPSHOT</version>
+	<artifactId>FragmentAssembler</artifactId>
+	<version>0.0.2</version>
 	<name>projet Assemblage Fragments ADN</name>
 	<description>projet Assemblage Fragments ADN</description>
 

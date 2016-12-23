@@ -9,15 +9,12 @@ import java.util.ArrayList;
 
 public class CreationFragCompInv {
 
-	public ArrayList<FragmentADN> creationFragCompInv(String filepath) throws IOException {
+	public ArrayList<FragmentADN> creationFragCompInv(String filepath)
+			throws IOException {
 
-		// lire le fichier fasta
-//	InputStream filer = ClassLoader.getSystemResourceAsStream("Collection1-SimplifiВe.FASTA");
-		// InputStream filer = ClassLoader.getSystemResourceAsStream("test");
+		// lecture du fichier fasta
 		BufferedReader br = new BufferedReader(new FileReader(filepath));
-//	BufferedReader br = new BufferedReader(new InputStreamReader(filer));
-	
-		String strLine, str = ""; // str=concaténation des lignes d'un fragment
+		String strLine, str = ""; // str:concaténation des lignes d'un fragment
 		int id = 0;
 
 		// Créer un un ArrayListe pour stocker les fragments et leurs
@@ -25,7 +22,6 @@ public class CreationFragCompInv {
 
 		ArrayList<FragmentADN> listeTousFragEtCompInv = new ArrayList<FragmentADN>();
 
-		// Read File Line By Line et concatenation des lignes de chaque fragment
 		strLine = br.readLine();
 		while (strLine != null) {
 			if (strLine.startsWith(">")) {
@@ -38,13 +34,12 @@ public class CreationFragCompInv {
 				id = id + 1;
 
 				// les parametres de notre obj fragment
-				char[] fr = str.toCharArray(); // creation tu tableau des acides
+				char[] fr = str.toCharArray(); // creation tu tableau des
+												// nucléotides
 				FragmentADN fragment = new FragmentADN(id, fr); // le fragment
 				FragmentADN fragCompInv = fragment.complementaire(); // le
-																		// fragment
 																		// complémentaire
 																		// inversé
-
 				id = fragCompInv.getId();
 
 				// Ajout du fragment et son complémentaire inversé dans le Map
