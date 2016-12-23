@@ -1,33 +1,19 @@
 package main.utilitaires;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import alignementEtConsensus.AlignementMultiple;
-import main.classes.Arc;
 
 public class Utilitaires {
 
 	String fichierLog = "/home/bellafkih/loggioinfo.txt";
 
 	public Utilitaires() {
-
-		// FileOutputStream writer = new FileOutputStream(fichierLog);
-		// writer.write(("").getBytes());
-		// writer.close();
 	}
 
 	public void displayArrayLists(ArrayList<ArrayList<Character>> arrayLists) {
@@ -57,25 +43,26 @@ public class Utilitaires {
 
 		FileWriter writer = new FileWriter(file);
 		String consensusStr = String.valueOf(consensus);
-		String FirstLine = "> Groupe 1 Collection " + this.getCollectionName(filePathFasta) + "  Longueur " + consensus.length
-				+ "  ";
+		String FirstLine = "> Groupe 1 Collection " + this.getCollectionName(filePathFasta) + "  Longueur "
+				+ consensus.length + "  ";
 		writer.write(FirstLine);
 		writer.write(System.getProperty("line.separator"));
 		writer.write(consensusStr);
 		writer.flush();
 		writer.close();
 
-		try {
-			BufferedWriter tampon = new BufferedWriter(new FileWriter("a" + file));
-			PrintWriter sortie = new PrintWriter(tampon);
-			sortie.println(FirstLine);
-			sortie.println(consensusStr);
-
-			sortie.flush();
-			sortie.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+		// try {
+		// BufferedWriter tampon = new BufferedWriter(new FileWriter("a" +
+		// file));
+		// PrintWriter sortie = new PrintWriter(tampon);
+		// sortie.println(FirstLine);
+		// sortie.println(consensusStr);
+		//
+		// sortie.flush();
+		// sortie.close();
+		// } catch (IOException e) {
+		// System.out.println(e);
+		// }
 
 	}
 
@@ -189,10 +176,7 @@ public class Utilitaires {
 	}
 
 	public void displayLine(char[] line) throws IOException {
-		// PrintStream System.out = new PrintStream(new
-		// FileOutputStream(fichierLog, true));
 
-		// FileWriter System.out = new FileWriter(fichierLog, true);
 		System.out.println("La ligne   est");
 		for (int k = 0; k < line.length; k++) {
 			System.out.print(line[k] + " ");

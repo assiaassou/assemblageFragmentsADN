@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import alignementEtConsensus.AlignementMultiple;
+import alignementEtConsensus.AlignementMultipleArrayList;
 import alignementEtConsensus.CoupleFragments;
 import alignementEtConsensus.ReconstitutionAlignementOpt;
 import main.utilitaires.Utilitaires;
@@ -28,29 +28,25 @@ public class MainAssemblageAdn {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+<<<<<<< HEAD
 		String[] args_ = new String[8];
 	    args_[0] = "/home/assia/Téléchargements/Collection1-SimplifiВe.FASTA";
 		args_[1] = "-out";
 		args_[2] = "/home/assia/Workspace-BioInfo/assemblage/assemblageFragmentsADN/resultat.fasta";
+=======
+>>>>>>> b464d629e99bd30c12e2531bbd53dcb0abd1efec
 
-		args_[3] = "-out-ic";
-		args_[4] = "resultatCom.fasta";
-
-		args= args_;
 		long startTime = System.nanoTime();
 		Utilitaires utils = new Utilitaires();
 		System.out.println("Début de la construction du chemin Hameltonien");
 		HamiltonianPath ga = new HamiltonianPath(args[0]);
 		ga.hameltonienPath();
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
 		Integer[] finalPath = ga.constructFinalPath();
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
 		ArrayList<Integer> cheminHameltonienFinale = new ArrayList<Integer>();
-		System.out.println("ccccccccccccccccccccc");
 		long endTime = System.nanoTime();
 
 		System.out.println("Fin de la construction du chemin Hameltonien");
-		System.out.println("Durée: " + ((endTime - startTime) / 1000000) + "ms");
+		System.out.println("Durée: " + (((endTime - startTime) / 1000000) / 60) + "minutes");
 		for (Integer a : finalPath) {
 			if (a != null) {
 				cheminHameltonienFinale.add(a);
@@ -92,7 +88,8 @@ public class MainAssemblageAdn {
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 
 		System.out.println("Debut de la calcul de la matrice consensus");
-		char[][] matrix = AlignementMultiple.consensus(listAlignement);
+
+		ArrayList<ArrayList<Character>> matrix = AlignementMultipleArrayList.consensus(listAlignement);
 		System.out.println("Fin de la calcul de la matrice consensus");
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 		System.out.println("Debut du vote ");
@@ -100,21 +97,27 @@ public class MainAssemblageAdn {
 		// char[] consensus= AlignementMultiple.voteMajorite(matrix);
 		// utils.generateCibleFileFast(args[1], consensus, args[0]);
 
-		char[] consensus = AlignementMultiple.voteMajorite(matrix);
+		char[] consensus = AlignementMultipleArrayList.voteMajorite(matrix);
 		utils.generateCibleFileFast(args[1], consensus, args[0]);
 
 		System.out.println("Fint du vote ");
 		Map<String, String> argsMap = new HashMap<String, String>();
 		for (int i = 0; i < args.length; i++) {
-			if (args[i].equals("-out")) {
-				argsMap.put("-out", args[i + 1]);
+			if (args[i].equals("--out")) {
+				argsMap.put("--out", args[i + 1]);
 			}
-			if (args[i].equals("-out-ic")) {
-				argsMap.put("-out-ic", args[i + 1]);
+			if (args[i].equals("--out-ic")) {
+				argsMap.put("--out-ic", args[i + 1]);
 			}
 		}
 		argsMap.put("fragmentsFasta", args[0]);
-		utils.generateCibleFileFast(argsMap.get("-out"), consensus, argsMap.get("fragmentsFasta"));
+		utils.generateCibleFileFast(argsMap.get("--out"), consensus, argsMap.get("fragmentsFasta"));
+
+		FragmentADN f = new FragmentADN();
+		f.setAcides(consensus);
+		FragmentADN fc = f.complementaire();
+		utils.generateCibleFileFast(argsMap.get("--out-ic"), consensus, argsMap.get("fragmentsFasta"));
+
 		System.out.println("Durée: " + (System.nanoTime() - startTime));
 
 	}

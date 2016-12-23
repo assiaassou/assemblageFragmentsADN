@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.classes.Arc;
-import main.utilitaires.Utilitaires;
 import rechercheDesChevauchements.AlignSemiGlobalParProgDynamique;
 import rechercheDesChevauchements.CreationFragCompInv;
 import rechercheDesChevauchements.FragmentADN;
@@ -70,7 +68,7 @@ public class HamiltonianPath {
 	 * 
 	 * @return void
 	 */
-	public void initializeData() {
+	public void initialiserDonnee() {
 		// initialize the input and the output flag of each fragment
 		for (int i = 1; i <= getTotalNumberOfFragments(); i++) {
 			in.put(i, 0);
@@ -94,7 +92,7 @@ public class HamiltonianPath {
 	 * @author bellafkih
 	 */
 	public Arc[] sortArcs() {
-		this.initializeData();
+		this.initialiserDonnee();
 		Arc t;
 		if (totalNumberOfArcs == 1) {
 		} else if (totalNumberOfArcs == 0) {
@@ -127,7 +125,7 @@ public class HamiltonianPath {
 	 * @return
 	 */
 	public void hameltonienPath() {
-		this.initializeData();
+		this.initialiserDonnee();
 		ManageArcsOfOverlapGraph uf = new ManageArcsOfOverlapGraph(totalNumberOfFragments);
 		this.sortArcs();
 		this.OrderedArcs = this.randomTheDuplicatedScoreArcs();
@@ -172,7 +170,7 @@ public class HamiltonianPath {
 	/**
 	 * Reassort the list of arcs that have same weight value, to diversify the
 	 * solution A random solution is implemented
-	 * 
+	 * on construit la liste dans des arcs ayant le même score, puis 
 	 * @return
 	 */
 	public Arc[] randomTheDuplicatedScoreArcs() {
@@ -260,14 +258,10 @@ public class HamiltonianPath {
 		int j;
 		i = i + 1;
 		while (i <= totalNumberOfFragments / 2) {
-			System.out.println("current head is "+headOfPath);
 			for (j = 0; j < copyOfListOfSelectedArcs.size(); j++) {
-				System.out.println(j);
-				System.out.println(copyOfListOfSelectedArcs.get(j)[0]+ "  "+copyOfListOfSelectedArcs.get(j)[1]);
 				if (headOfPath.equals( copyOfListOfSelectedArcs.get(j)[0])) {
 					contigFragments[i] = copyOfListOfSelectedArcs.get(j)[1];
 					headOfPath = copyOfListOfSelectedArcs.get(j)[1];
-					System.out.println("heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad"+headOfPath);
 					copyOfListOfSelectedArcs.remove(copyOfListOfSelectedArcs.get(j));
 					i++;
 					break;
