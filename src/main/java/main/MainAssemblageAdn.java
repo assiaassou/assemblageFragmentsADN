@@ -29,9 +29,9 @@ public class MainAssemblageAdn {
 	 */
 	public static void main(String[] args) throws IOException {
 		String[] args_ = new String[8];
-		args_[0] = "/home/bellafkih/testgit/assemblageFragmentsADN/target/collection4.fasta";
+	    args_[0] = "/home/assia/Téléchargements/Collection1-SimplifiВe.FASTA";
 		args_[1] = "-out";
-		args_[2] = "/home/bellafkih/testgit/assemblageFragmentsADN/target/resultat.fasta";
+		args_[2] = "/home/assia/Workspace-BioInfo/assemblage/assemblageFragmentsADN/resultat.fasta";
 
 		args_[3] = "-out-ic";
 		args_[4] = "resultatCom.fasta";
